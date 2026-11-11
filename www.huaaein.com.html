@@ -1,1 +1,593 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>عزايم دار سفوان 🍲</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbf6ea;
+    --card:#ffffff;
+    --line:#ece3cf;
+    --ink:#2c2416;
+    --mut:#8a7a5c;
+    --gold:#d4a54a;
+    --orange:#e07a3f;
+    --orange-soft:#fdf1e7;
+    --green:#4ea971;
+    --green-soft:#e9f6ef;
+    --red:#e06464;
+    --red-soft:#fde8e8;
+    --yellow:#d9a441;
+    --yellow-soft:#fcf3db;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;padding:16px;
+    background:
+      radial-gradient(600px 300px at 100% 0%, rgba(224,122,63,.07), transparent 60%),
+      radial-gradient(500px 250px at 0% 100%, rgba(212,165,74,.07), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Cairo',Tahoma,sans-serif;
+    min-height:100vh;
+    max-width:960px;
+    margin-inline:auto;
+  }
+
+  /* ===== Header ===== */
+  header{
+    display:flex;align-items:center;gap:12px;
+    padding:14px 18px;
+    background:var(--card);
+    border:2px dashed var(--line);
+    border-radius:20px;
+    margin-bottom:16px;
+    transform:rotate(-.4deg);
+  }
+  .logo{font-size:36px;display:inline-block;animation:wiggle 3s infinite}
+  @keyframes wiggle{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+  header h1{font-size:17px;margin:0;font-weight:800}
+  header small{color:var(--mut);font-size:11.5px;display:block;margin-top:3px}
+
+  /* ===== Stats ===== */
+  .stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+    gap:10px;margin-bottom:16px;
+  }
+  .stat{
+    background:var(--card);
+    border:2px solid var(--line);
+    border-radius:16px;
+    padding:12px 14px;
+    text-align:center;
+    transition:.2s;
+    transform:rotate(.3deg);
+  }
+  .stat:nth-child(even){transform:rotate(-.4deg)}
+  .stat:hover{transform:rotate(0) scale(1.02)}
+  .stat small{color:var(--mut);font-size:11.5px;font-weight:600}
+  .stat b{display:block;font-size:26px;font-weight:800;margin-top:4px}
+  .stat.tot b{color:var(--orange)}
+  .stat.yes b{color:var(--green)}
+  .stat.no b{color:var(--red)}
+  .stat.pend b{color:var(--yellow)}
+
+  /* ===== Tabs ===== */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .tabs button{
+    background:var(--card);
+    border:2px solid var(--line);
+    color:var(--mut);
+    padding:10px 16px;
+    border-radius:12px;
+    font:inherit;font-weight:700;font-size:13px;
+    cursor:pointer;transition:.18s;
+  }
+  .tabs button:hover{transform:translateY(-2px);color:var(--ink)}
+  .tabs button.on{
+    background:var(--orange);color:#fff;border-color:var(--orange);
+    transform:rotate(-1deg);
+    box-shadow:3px 3px 0 var(--gold);
+  }
+
+  /* ===== Cards ===== */
+  .card{
+    background:var(--card);
+    border:2px solid var(--line);
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:14px;
+  }
+  .card.hide{display:none}
+  .card h3{
+    margin:0 0 12px;font-size:15px;
+    color:var(--orange);font-weight:800;
+    display:flex;align-items:center;gap:8px;
+  }
+
+  /* ===== Inputs ===== */
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+  input,select{
+    background:#fbf6ea;
+    border:2px solid var(--line);
+    color:var(--ink);
+    padding:9px 12px;
+    border-radius:11px;
+    font:inherit;font-size:13px;
+    outline:none;transition:.15s;
+    font-family:'Cairo',Tahoma,sans-serif;
+  }
+  input:focus,select:focus{border-color:var(--orange);background:#fff}
+  input::placeholder{color:#b3a582}
+  input[type=number]{width:95px}
+  input[type=date]{color-scheme:light}
+
+  .btn{
+    background:var(--card);
+    border:2px solid var(--line);
+    color:var(--ink);
+    padding:9px 15px;
+    border-radius:11px;
+    font:inherit;font-weight:700;font-size:13px;
+    cursor:pointer;transition:.15s;
+    font-family:'Cairo',Tahoma,sans-serif;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{
+    background:var(--orange);color:#fff;border-color:var(--orange);
+    box-shadow:2px 2px 0 var(--gold);
+  }
+  .btn.primary:hover{box-shadow:3px 3px 0 var(--gold)}
+  .btn.sm{padding:6px 11px;font-size:12px}
+
+  /* ===== Table ===== */
+  .wrap{overflow-x:auto;margin:0 -6px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:820px}
+  th{
+    text-align:right;padding:10px 8px;
+    font-size:11.5px;font-weight:700;color:var(--mut);
+    background:#fbf6ea;border-bottom:2px solid var(--line);
+    white-space:nowrap;
+  }
+  td{
+    padding:11px 8px;
+    border-bottom:1.5px solid var(--line);
+    text-align:right;vertical-align:middle;
+  }
+  tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:#fdfaf2}
+  td.name{font-weight:700;white-space:nowrap}
+  .title-tag{
+    display:block;
+    font-size:10.5px;
+    color:var(--orange);
+    font-weight:600;
+    margin-top:3px;
+    background:var(--orange-soft);
+    padding:2px 8px;
+    border-radius:20px;
+    width:fit-content;
+  }
+  td.mut{color:var(--mut);font-size:12.5px}
+
+  /* ===== Vote ===== */
+  .vote-wrap{display:flex;gap:5px}
+  .v{
+    border:2px solid var(--line);
+    background:var(--card);
+    color:var(--mut);
+    padding:6px 12px;
+    border-radius:10px;
+    font:inherit;font-size:12px;font-weight:700;
+    cursor:pointer;transition:.15s;
+    font-family:'Cairo',Tahoma,sans-serif;
+  }
+  .v:hover{transform:translateY(-1px)}
+  .v.y.sel{background:var(--green-soft);color:var(--green);border-color:var(--green)}
+  .v.n.sel{background:var(--red-soft);color:var(--red);border-color:var(--red)}
+
+  /* ===== Badge ===== */
+  .badge{
+    display:inline-block;
+    padding:3px 10px;
+    border-radius:20px;
+    font-size:11px;font-weight:700;
+  }
+  .badge.ok{background:var(--green-soft);color:var(--green)}
+  .badge.no{background:var(--red-soft);color:var(--red)}
+  .badge.pend{background:var(--yellow-soft);color:var(--yellow)}
+
+  /* ===== Docs ===== */
+  .doc{
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+    padding:11px 0;
+    border-bottom:1.5px dashed var(--line);
+    font-size:13.5px;
+  }
+  .doc:last-child{border-bottom:none}
+  .doc span{font-weight:600}
+
+  /* ===== Log ===== */
+  .log{
+    font-family:'Courier New',monospace;
+    direction:ltr;text-align:left;
+    font-size:12px;line-height:1.9;
+    background:#2c2416;
+    color:#a8e6bf;
+    border-radius:12px;
+    padding:12px;
+    height:200px;overflow:auto;
+  }
+  .log .t{color:#7a8a7a}
+
+  /* ===== Footnote ===== */
+  .footnote{
+    text-align:center;font-size:11.5px;color:var(--mut);
+    margin-top:20px;line-height:2;
+    padding:12px;
+    background:var(--card);
+    border:2px dashed var(--line);
+    border-radius:16px;
+  }
+
+  .empty{padding:30px 10px;text-align:center;color:var(--mut);font-size:13px}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="logo">🍲</div>
+  <div>
+    <h1>عزايم دار سفوان — (الجوع چتال صاحبه)</h1>
+    <small></small>
+  </div>
+</header>
+
+<!-- ===== STATS ===== -->
+<div class="stats">
+  <div class="stat tot"><small>كل العزايم</small><b id="sTotal">0</b></div>
+  <div class="stat yes"><small>جايين 😋</small><b id="sYes">0</b></div>
+  <div class="stat no"><small>معتذرين 😢</small><b id="sNo">0</b></div>
+  <div class="stat pend"><small>ما صوّتوا</small><b id="sPend">0</b></div>
+</div>
+
+<!-- ===== TABS ===== -->
+<div class="tabs" id="tabs">
+  <button class="on" data-t="t1">📅 التصويت</button>
+  <button data-t="t2">➕ احجز عزيمة</button>
+  <button data-t="t3">📄 المستندات</button>
+  <button data-t="t4">🖥️ السجل</button>
+</div>
+
+<!-- ===== TAB 1: VOTING ===== -->
+<section id="t1" class="card">
+  <div class="row">
+    <input id="q" placeholder="🔍 دوّر باسم أو أكلة..." oninput="render()" style="flex:1;min-width:200px">
+    <select id="fFilter" onchange="render()">
+      <option value="all">الكل</option>
+      <option value="yes">الجايين بس</option>
+      <option value="no">المعتذرين بس</option>
+      <option value="pending">اللي ما صوّتوا</option>
+    </select>
+  </div>
+  <div class="wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>الاسم واللقب</th>
+          <th>الأكلة</th>
+          <th>التاريخ</th>
+          <th>الضيوف</th>
+          <th>راح تجي؟</th>
+          <th>الحالة</th>
+        </tr>
+      </thead>
+      <tbody id="body"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== TAB 2: NEW BOOKING ===== -->
+<section id="t2" class="card hide">
+  <h3>➕ احجز عزيمتك (على مسؤوليتك)</h3>
+  <div class="row">
+    <input id="nName" placeholder="اسم صاحب العزيمة" style="flex:1;min-width:180px">
+    <select id="nMeal"></select>
+    <input id="nDate" type="date">
+    <input id="nGuests" type="number" min="1" value="20">
+    <button class="btn primary" onclick="addBooking()">💾 احفظ</button>
+  </div>
+  <small style="color:var(--mut)">* بعد ما تطبخ ما يحقلك تعتذر 🍲 — ناس جايين على حسابك.</small>
+</section>
+
+<!-- ===== TAB 3: DOCS ===== -->
+<section id="t3" class="card hide">
+  <h3>📄 مستندات رسمية (بالاسم بس)</h3>
+  <div id="docsList"></div>
+</section>
+
+<!-- ===== TAB 4: LOG ===== -->
+<section id="t4" class="card hide">
+  <h3>🖥️ سجل السيرفر (شغّال والله)</h3>
+  <div class="row" style="justify-content:space-between">
+    <small style="color:var(--mut)">يتحدّث لحاله كل فترة...</small>
+    <button class="btn sm" id="btnPing">📡 Ping</button>
+  </div>
+  <div class="log" id="log" style="margin-top:10px"></div>
+</section>
+
+<!-- ===== FOOTNOTE ===== -->
+<div class="footnote">
+  ⚠️ كل هذا مزاح — لا سيرفر، لا قاعدة بيانات، لا عزيمة.<br>
+  البيانات بس على متصفحك، إذا مسحت الكاش راحت العزايم 😅
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ========== البيانات ========== */
+  const KEY = 'safwan_azaim_fun_v1';
+  const $ = id => document.getElementById(id);
+
+  // [الاسم, اللقب, الأكلة]
+  const PEOPLE = [
+    ['عباس جميل الموسوي', 'مستشار الأمن الأكلي 🛡️',        'قوزي'],
+    ['حيدر عدنان',         'ماجستير تفصيخ عظام 🦴',          'كباب وتكة'],
+    ['علي خلف',            'وزير التمن المخضرم 🍚',           'قيمة وتمن'],
+    ['كرار حيدر',          'سفير القوزي فوق الصحن 🥩',       'قوزي'],
+    ['حسين طاهر',          'خبير مرق باميا الاستراتيجي 🥘',  'مرق باميا'],
+    ['محمد طاهر',          'أستاذ الدولمة المقارنة 📚',      'دولمة'],
+    ['عبد الأعلى',         'كبير مستشاري الفلفل الحار 🌶️',   'هريسة'],
+    ['حسين عباس',          'مدير عام السكب العشوائي 🥄',     'برياني'],
+    ['سعود عبد العزيز',    'رئيس هيئة تنظيف الصحون 🧼',      'مسگوف'],
+    ['علي مهدي',           'نائب وزير اللحم 🍖',             'قوزي'],
+    ['ضرغام جبار',         'ضابط سحب الكرسي الأخير 🪑',      'تشريب'],
+    ['سجاد رفيق',          'خبير الشاي بعد الأكل ☕',         'فسنجون'],
+    ['علي وليد',           'مفتش عام التمن المتناثر 🔍',      'برياني']
+  ];
+
+  const MEALS = ['قيمة وتمن','مرق باميا','دولمة','برياني','مسگوف','كباب وتكة','هريسة','قوزي','فسنجون','تشريب'];
+
+  let data = [];
+  let seq = 1;
+
+  /* ========== قاعدة البيانات ========== */
+  function seed(){
+    const base = new Date();
+    data = PEOPLE.map((p, i) => {
+      const d = new Date(base);
+      d.setDate(d.getDate() + i * 2 + 1);
+      return {
+        id: seq++,
+        name: p[0],
+        title: p[1],
+        meal: p[2],
+        date: d.toISOString().slice(0,10),
+        guests: 15 + ((i * 7) % 35),
+        yes: 3 + ((i * 5) % 9),
+        no: (i * 3) % 4,
+        my: null
+      };
+    });
+  }
+
+  function load(){
+    try {
+      const s = localStorage.getItem(KEY);
+      if (s){
+        const o = JSON.parse(s);
+        if (o && Array.isArray(o.data)){
+          data = o.data;
+          seq = o.seq || (data.length + 1);
+          return;
+        }
+      }
+    } catch(e){}
+    seed();
+  }
+
+  function save(){
+    try { localStorage.setItem(KEY, JSON.stringify({ data, seq })); } catch(e){}
+  }
+
+  /* ========== مساعدات ========== */
+  const esc = s => String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+  function statusOf(r){
+    if (r.my === 'y') return ['جاي بأذن الله','ok'];
+    if (r.my === 'n') return ['معتذر 😢','no'];
+    if (r.yes >= 10)  return ['✅ مؤكدة','ok'];
+    if (r.yes >= 6)   return ['⏳ قيد الطبخ','pend'];
+    return ['📣 ناقص ناس','pend'];
+  }
+
+  /* ========== عرض الجدول ========== */
+  function render(){
+    const q = ($('q').value || '').trim();
+    const f = $('fFilter').value;
+
+    const list = data.filter(r => {
+      const matchQ = !q || r.name.includes(q) || (r.title||'').includes(q) || r.meal.includes(q);
+      const matchF =
+        f === 'all' ||
+        (f === 'yes' && r.my === 'y') ||
+        (f === 'no' && r.my === 'n') ||
+        (f === 'pending' && !r.my);
+      return matchQ && matchF;
+    });
+
+    if (!list.length){
+      $('body').innerHTML = '<tr><td colspan="7" class="empty">ما لكيت أحد بهذا الاسم… يمكن غلطت؟ 🤔</td></tr>';
+    } else {
+      $('body').innerHTML = list.map(r => {
+        const st = statusOf(r);
+        return `
+          <tr>
+            <td class="mut">${r.id}</td>
+            <td class="name">${esc(r.name)}<span class="title-tag">${esc(r.title||'')}</span></td>
+            <td>${esc(r.meal)}</td>
+            <td class="mut">${esc(r.date)}</td>
+            <td>${r.guests}</td>
+            <td>
+              <div class="vote-wrap">
+                <button class="v y ${r.my === 'y' ? 'sel' : ''}" onclick="vote(${r.id},'y')">نعم ${r.yes}</button>
+                <button class="v n ${r.my === 'n' ? 'sel' : ''}" onclick="vote(${r.id},'n')">لا ${r.no}</button>
+              </div>
+            </td>
+            <td><span class="badge ${st[1]}">${st[0]}</span></td>
+          </tr>`;
+      }).join('');
+    }
+
+    $('sTotal').textContent = data.length;
+    $('sYes').textContent   = data.reduce((a,r) => a + r.yes, 0);
+    $('sNo').textContent    = data.reduce((a,r) => a + r.no, 0);
+    $('sPend').textContent  = data.filter(r => !r.my).length;
+  }
+
+  /* ========== التصويت ========== */
+  window.vote = function(id, v){
+    const r = data.find(x => x.id === id);
+    if (!r) return;
+
+    if (r.my === 'y') r.yes--;
+    if (r.my === 'n') r.no--;
+
+    if (r.my === v){
+      r.my = null;
+      log(`${r.name} غيّر رأيه ومسح صوته 😂`);
+    } else {
+      r.my = v;
+      if (v === 'y'){ r.yes++; log(`${r.name} قال نعم ✅ — (${r.title})`); }
+      else { r.no++; log(`${r.name} اعتذر ❌ — السبب: ما يريد يغسل صحون`); }
+    }
+
+    save();
+    render();
+  };
+
+  /* ========== حجز جديد ========== */
+  window.addBooking = function(){
+    const n = $('nName').value.trim();
+    if (!n){ alert('اكتب اسم صاحب العزيمة أول شي 😅'); return; }
+
+    const newTitles = [
+      'عضو جديد بالدار 🌟',
+      'من الجمهور 🎉',
+      'ضيف شرف 👑',
+      'متطوع (بدون علمه) 🙃'
+    ];
+
+    data.push({
+      id: seq++,
+      name: n,
+      title: newTitles[Math.floor(Math.random() * newTitles.length)],
+      meal: $('nMeal').value,
+      date: $('nDate').value || new Date().toISOString().slice(0,10),
+      guests: +$('nGuests').value || 10,
+      yes: 0,
+      no: 0,
+      my: null
+    });
+
+    log(`حجز جديد وصل من ${n} — الله يتقبل 🤲`);
+    save();
+    render();
+
+    $('nName').value = '';
+    $('nGuests').value = 20;
+    alert('تم الحجز ✅ — بلّغ الطباخ بسرعة قبل لا ينسى 🍲');
+  };
+
+  /* ========== المستندات ========== */
+  const DOCS = [
+    'إقرار بعدم ترك الصحن فارغ 📝',
+    'تعهد بعدم أخذ آخر قطعة لحم 🥩',
+    'استمارة طلب زيادة التمن 🍚',
+    'شهادة حسن الأكل والسلوك 🏅',
+    'محضر اجتماع: من ينظف بعد العزيمة؟ 🧹'
+  ];
+
+  function renderDocs(){
+    $('docsList').innerHTML = DOCS.map((d, i) => `
+      <div class="doc">
+        <span>${esc(d)}</span>
+        <button class="btn sm" onclick="downloadDoc(this, ${i})">حمّل</button>
+      </div>`).join('');
+  }
+
+  window.downloadDoc = function(btn, i){
+    btn.textContent = 'يحمّل...';
+    log(`طلب تحميل مستند رقم ${i+1} — الملف خيالي للأسف`);
+    setTimeout(() => {
+      btn.textContent = 'تهي بهي انوب مصدك 😄)';
+      setTimeout(() => btn.textContent = 'حمّل', 1800);
+    }, 900);
+  };
+
+  /* ========== السجل ========== */
+  function log(msg){
+    const el = $('log');
+    if (!el) return;
+    const d = new Date();
+    const p = n => String(n).padStart(2,'0');
+    const t = `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+    const line = document.createElement('div');
+    line.innerHTML = `<span class="t">[${t}]</span> ${esc(msg)}`;
+    el.appendChild(line);
+    el.scrollTop = el.scrollHeight;
+    while (el.children.length > 100) el.removeChild(el.firstChild);
+  }
+
+  /* ========== التابات ========== */
+  $('tabs').addEventListener('click', e => {
+    const t = e.target.dataset.t;
+    if (!t) return;
+    document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b === e.target));
+    ['t1','t2','t3','t4'].forEach(x => $(x).classList.toggle('hide', x !== t));
+  });
+
+  /* ========== Ping ========== */
+  $('btnPing').addEventListener('click', () => {
+    const t = 18 + Math.floor(Math.random() * 40);
+    log(`PING → الخادم ... رد بعد ${t}ms (يا ترى شغّال؟)`);
+  });
+
+  /* ========== التشغيل ========== */
+  $('nMeal').innerHTML = MEALS.map(m => `<option>${esc(m)}</option>`).join('');
+  $('nDate').value = new Date().toISOString().slice(0,10);
+
+  load();
+  save();
+  render();
+  renderDocs();
+
+  log('أهلاً بيك بالدار 🍲');
+  log('قاعدة البيانات: مالت المتصفح (localStorage)');
+  log('كل شي شغّال... تقريباً');
+
+  // رسائل مزح بين فترة وفترة
+  const funnyMsgs = [
+    'تذكير: التمن لا يطبخ نفسه حرك روحك 🍚',
+    'أحدهم فتح الثلاجة، لا تعليق 🧊',
+    'الخادم يسأل: باقي قوزي؟',
+    'وصلت رسالة: "منو يجيب الشاي؟" ☕',
+    'تنبيه: صحن عبد الأعلى فاضي مرة ثانية',
+    'تقرير المطبخ: الفلفل خلص 🌶️'
+  ];
+  setInterval(() => {
+    log(funnyMsgs[Math.floor(Math.random() * funnyMsgs.length)]);
+  }, 6000);
+
+})();
+</script>
+</body>
+</html>
